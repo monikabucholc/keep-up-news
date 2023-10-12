@@ -37,6 +37,11 @@ yarn-error.log
 testem.log
 /typings
 
+# Ignore the environment files
+/src/environments/environment.api.ts
+/src/environments/environment.development.ts
+/src/environments/environment.ts
+
 # System files
 .DS_Store
 Thumbs.db

@@ -3,16 +3,31 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { NavComponent } from './nav/nav.component';
+import { FormsModule } from '@angular/forms';
+import { NewsListComponent } from './news-list/news-list.component';
+import { NewsComponent } from './news/news.component';
+import { SearchService } from './services/search-news.service';
+import { HttpClient, HttpClientModule } from '@angular/common/http';
+
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    NavComponent,
+    NewsListComponent,
+    NewsComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [
+    SearchService,
+    HttpClient
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

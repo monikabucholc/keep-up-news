@@ -1,0 +1,9 @@
+<div>
+    <form (ngSubmit)="onSubmit()">
+        <input type="text" [(ngModel)]="searchParam" name="searchParam">
+        <button type="submit">Submit</button>
+    </form>
+    <div>
+        {{ searchParam }}
+    </div>
+</div>
