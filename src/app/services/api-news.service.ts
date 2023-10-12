@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { NewsRepr } from '../interfaces/news-representation';
+
 
 @Injectable({
   providedIn: 'root'
@@ -21,6 +23,6 @@ export class ApiNewsService {
 
   getSearchNews(param: string = 'example'):Observable<any> {
     const searchUrl: string = `${this.baseUrl}search?q=${param}&apikey=${this.apiKey}`;
-    return this.http.get<any>(searchUrl)
+    return this.http.get<NewsRepr>(searchUrl)
   }
 }

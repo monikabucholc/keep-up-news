@@ -1,2 +1,19 @@
-<p>news-list works! {{searchParam}}</p>
+<div *ngIf="news.articles.length > 0">
+    <div *ngFor="let article of news.articles">
+        <img 
+            [src]="article.image ? article.image : '../../assets/absolutvision-WYd_PkCa1BY-unsplash.jpg'" 
+            [attr.alt]="article.title"
+            width="240px">
+        <div>{{ article?.title }}</div>
+        <div>{{ article?.source?.name }}</div>
+        <div>{{ article?.publishedAt?.replace("T", " ")?.replace("Z", "")}}</div>
+    </div>
+    
+ 
+
+
+
+
+</div>
+
 
