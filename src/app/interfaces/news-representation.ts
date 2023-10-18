@@ -1,10 +1,9 @@
 export interface NewsRepr {
-    
     totalArticles: number,
     articles: ArticleRepr[]
 }
 
- interface ArticleRepr {
+ export interface ArticleRepr {
     title: string,
     description: string,
     content: string,

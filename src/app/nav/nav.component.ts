@@ -1,22 +1,33 @@
 import { Component } from '@angular/core';
-import { ApiNewsService } from '../services/api-news.service';
+import { NewsService } from '../services/news.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-nav',
-  templateUrl: './nav.component.html',
+  template: `
+    <header>
+      <h1 (click)="onLogoClick()">Logo</h1>
+      <form (ngSubmit)="onSubmit()">
+          <input type="text" [(ngModel)]="searchParam" name="searchParam">
+          <button type="submit">Submit</button>
+      </form>
+      <div>
+          {{ searchParam }}
+      </div>
+    </header>
+  `,
   styleUrls: ['./nav.component.css']
 })
 export class NavComponent {
 
   searchParam: string = '';
-  constructor(public service: ApiNewsService) { }
-
-
-
-
-onSubmit() {
-  this.service.setSearchParam(this.searchParam);
-}
-  
-
+  constructor(private service: NewsService, private router: Router) {}
+  onSubmit() {
+    this.service.setSearchParam(this.searchParam);
+    this.router.navigate(['search', this.searchParam])
+  }
+  onLogoClick() {
+    this.service.setSearchParam('example');
+    this.router.navigate([''])
+  }
 }
