@@ -23,11 +23,11 @@ export class NavComponent {
   searchParam: string = '';
   constructor(private service: NewsService, private router: Router) {}
   onSubmit() {
-    this.service.setSearchParam(this.searchParam);
+    this.service.setParam('search', this.searchParam);
     this.router.navigate(['search', this.searchParam])
   }
   onLogoClick() {
-    this.service.setSearchParam('example');
+    this.service.setParam('search', 'example');
     this.router.navigate([''])
   }
 }

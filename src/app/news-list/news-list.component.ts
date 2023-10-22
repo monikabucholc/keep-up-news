@@ -15,7 +15,6 @@ import { Router } from '@angular/router';
               [attr.alt]="article.title"
               width="240px">
           <div>{{ article.title }}</div>
-          <div>{{ article.source.name }}</div>
           <div>{{ article.publishedAt.replace("T", " ").replace("Z", "")}}</div>
       </div>
     </section>
@@ -39,14 +38,18 @@ export class NewsListComponent implements OnInit {
       }
     }]
   }
+
+ 
   
   constructor(
     private newsService: NewsService,
     private router: Router,
     ) {}
+    
+
 
   ngOnInit(): void {
-    this.newsService.param.subscribe((param: Param) => {
+    this.newsService.param$.subscribe((param: Param) => {
       this.newsService.getNews(param)
       .subscribe( {
         next: (data: NewsRepr):void => {

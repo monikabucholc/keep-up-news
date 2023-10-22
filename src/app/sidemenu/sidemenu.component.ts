@@ -11,7 +11,7 @@ interface country {
 @Component({
   selector: 'app-sidemenu',
   template: `
-    <aside class="sidemenu">Sidemenu works
+    <aside class="sidemenu">
       <ul>
         <li *ngFor="let country of countries" (click)="onCountryClick(country.code)">
           {{ country.name_en }}
@@ -27,7 +27,7 @@ export class SidemenuComponent {
   constructor(private service: NewsService, private router: Router) {}
 
   onCountryClick(code: string) {
-    this.service.setCountryParam(code.toLowerCase());
+    this.service.setParam('country', code.toLowerCase());
     this.router.navigate(['country', code.toLowerCase()])
   }
 

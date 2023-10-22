@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable} from '@angular/core';
 import { environment } from '../../environments/environment';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
@@ -13,37 +13,32 @@ export class NewsService {
   constructor(private http: HttpClient) {}
   
   //PARAMS
-  public param = new BehaviorSubject<Param>({
+  private param = new BehaviorSubject<Param>({
     type: 'search',
     param: 'example'
   });
-  //PARAM - SEARCH 
-  setSearchParam(data: string) {
+  public param$: Observable<Param> = this.param.asObservable();
+
+
+  setParam(type: string, param: string) {
     this.param.next({
-      type: 'search',
-      param: data
+      type: type,
+      param: param
     });
-  }
-  //PARAM - COUNTRY
-  setCountryParam(data: string) {
-    this.param.next({
-      type: 'country',
-      param: data
-    })
   }
 
   //API 
     private apiKey:string = environment.apiKey;
     private baseUrl:string = `https://gnews.io/api/v4/`;
-  getNews(param: Param ):Observable<any> {
+  getNews(param: Param ):Observable<NewsRepr> {
     let searchUrl: string = ''
     if (param.param == 'example') {
-      searchUrl = `${this.baseUrl}search?q=${param.param}&lang=en&apikey=${this.apiKey}`;
+      searchUrl = `${this.baseUrl}top-headlines?category=general&lang=en&apikey=${this.apiKey}`;
     } else if (param.type == 'search') {
       searchUrl = `${this.baseUrl}search?q=${param.param}&apikey=${this.apiKey}`
     } else if (param.type == 'country') {
 
-      searchUrl = `${this.baseUrl}search?q=example&country=${param.param}&apikey=${this.apiKey}`
+      searchUrl = `${this.baseUrl}top-headlines?category=general&apikey=${this.apiKey}&country=${param.param}`
     }
       return this.http.get<NewsRepr>(searchUrl)
   }
