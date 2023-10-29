@@ -1,0 +1,64 @@
+#keep-up {
+    --text-main-color: #242425;
+    --text-active-color: rgb(243,207,19);
+    --text-sub-color: #75818F;
+    --icon-color: rgb(178, 183, 190);
+    --background-color: rgb(239,240,243);
+    --white-color: #FFFFFF;
+    --border-main-color: #606063;
+    --border-input-color: #CDD0D3;
+    --border-radius: .25rem;
+    --padding-desktop: 1rem;
+    --padding-mobile: .5rem 1rem;
+    font-family: 'Playfair Display', serif;
+
+    display: grid;
+    grid-template-columns: 1fr 4fr;
+    color: var(--text-main-color);
+    margin: 0 10%;
+}
+
+.app-navbar {
+    position: fixed;
+    margin: 0 10%;
+    padding-top: 16px;
+    right: 0;
+    top: 0;
+    left: 0;
+    height: 94px;
+    z-index: 2;
+    background-color: var(--white-color);
+}
+
+.app-sidemenu {
+    position: fixed;
+    top: 110px;
+    bottom: 0;
+    overflow-y: auto;
+    width: 16%;
+    z-index: 1
+}
+
+
+.app-sidemenu::-webkit-scrollbar {
+    width: 0;
+    background: transparent;
+}
+
+
+@media all and (max-width: 900px) {
+    #keep-up {
+        margin: 0 2%;
+        grid-template-columns: 1fr;
+    }
+    .app-navbar {
+        margin: 0 2%;
+        height: 136px;
+    }
+    .app-sidemenu {
+        top: 136px;
+        height: calc(100% - 136px);
+        width: 100%;
+        left: 0;
+    }
+  }

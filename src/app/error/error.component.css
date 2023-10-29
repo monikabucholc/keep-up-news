@@ -1,0 +1,21 @@
+.error {
+    font-family: 'Source Sans Pro', serif;
+    position: relative;
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    flex-direction: column;
+    height: 100vh;
+    text-align: center;
+}
+
+.error h1 {
+    text-transform: uppercase;
+    margin: 0
+}
+
+.error h3 {
+    font-weight: 500;
+    padding: 2rem;
+
+}

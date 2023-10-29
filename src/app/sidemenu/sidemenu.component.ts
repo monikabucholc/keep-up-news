@@ -1,6 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { countriesAvailable } from '../data/countries';
-import { NewsService } from '../services/news.service';
 import { Router } from '@angular/router';
 
 interface country {
@@ -8,26 +7,35 @@ interface country {
   name_en: string,
   code: string
 }
+
 @Component({
   selector: 'app-sidemenu',
   template: `
-    <aside class="sidemenu">
+    <aside class="sidemenu" >
+      <h3>Source:</h3>
+      <div></div>
       <ul>
-        <li *ngFor="let country of countries" (click)="onCountryClick(country.code)">
-          {{ country.name_en }}
+        <li class="sidemenu-country" *ngFor="let country of countries" (click)="onCountryClick(country.code)">
+          <img [src]="'https://flagcdn.com/'+ country.code.toLowerCase() + '.svg'" [alt]="'flag of ' + country.name_en" width="24px">
+          <span>{{ country.name_en }}</span> 
         </li>
-
       </ul>
     </aside>
   `,
   styleUrls: ['./sidemenu.component.css']
 })
 export class SidemenuComponent {
-  countries: country[] = countriesAvailable
-  constructor(private service: NewsService, private router: Router) {}
+  constructor(private router: Router) {}
+  countries: country[] = countriesAvailable;
+  @Input() innerWidth: any;
+  @Input() isSidemenu!: boolean;
+  @Output() toggleSidemenu = new EventEmitter<void>()
+  onToggleSidemenu(): void {
+    this.toggleSidemenu.emit()
+  }
 
   onCountryClick(code: string) {
-    this.service.setParam('country', code.toLowerCase());
+    if (this.innerWidth < 900) {this.onToggleSidemenu()};
     this.router.navigate(['country', code.toLowerCase()])
   }
 

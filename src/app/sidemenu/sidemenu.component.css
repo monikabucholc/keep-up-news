@@ -1,4 +1,42 @@
 .sidemenu {
-    position: fixed;
-    right: 0
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Source Sans Pro', serif;
+    margin: 2rem 0;
+    border-right: 2px solid var(--text-main-color);
+    background: var(--white-color);
+
 }
+
+.sidemenu h3 {
+    margin: 0 0 1rem;
+    text-transform: uppercase;
+}
+.sidemenu ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    
+}
+.sidemenu-country {
+    padding: .75rem 0;
+    text-transform: uppercase;
+}
+.sidemenu-country:hover {
+    color: var(--text-sub-color);
+    font-weight: 700;
+}
+.sidemenu-country img {
+    filter: saturate(30%);
+    margin-right: 1rem;
+    border: 1px solid var(--background-color);
+
+}
+
+@media all and (max-width: 900px) {
+    .sidemenu {
+        padding: 0 4rem;
+    }
+  }

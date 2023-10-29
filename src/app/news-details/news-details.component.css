@@ -1,0 +1,17 @@
+.news-detail {
+    position: relative;
+    top: 94px;
+    margin: 4rem 0 2rem 2rem;
+}
+
+.news-detail h2 {
+    margin-top: 0;
+}
+
+.news-detail img {
+    width: 50%
+}
+
+.news-details p:first-child {
+    font-weight: 700
+}

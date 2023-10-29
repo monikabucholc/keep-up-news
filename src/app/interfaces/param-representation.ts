@@ -1,4 +1,4 @@
 export interface Param {
-    type: string;
-    param: string;
+    type: string,
+    param: string
   }
