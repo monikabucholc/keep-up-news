@@ -24,11 +24,11 @@ interface country {
   `,
   styleUrls: ['./sidemenu.component.css']
 })
+
 export class SidemenuComponent {
   constructor(private router: Router) {}
   countries: country[] = countriesAvailable;
   @Input() innerWidth: any;
-  @Input() isSidemenu!: boolean;
   @Output() toggleSidemenu = new EventEmitter<void>()
   onToggleSidemenu(): void {
     this.toggleSidemenu.emit()

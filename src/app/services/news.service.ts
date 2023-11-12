@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Param } from '../interfaces/param-representation';
-import {  Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { ArticleRepr, NewsRepr } from '../interfaces/news-representation';
 import { environment } from 'src/environments/environment';
@@ -15,7 +15,6 @@ export class NewsService {
 
   private apiKey: string = environment.apiKey;
   private baseUrl:string = `https://gnews.io/api/v4/`;
-
 
   getNews(p: Param):Observable<NewsRepr> {
     let url: string = '';

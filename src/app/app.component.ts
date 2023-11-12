@@ -5,9 +5,8 @@ import { Component, HostListener, OnInit } from '@angular/core';
   template: `
     <main id="keep-up">
       <app-navbar [innerWidth]="innerWidth" [isSidemenu]="isSidemenu" (toggleSidemenu)="onToggleSidemenu()" class="app-navbar"></app-navbar>
-      <app-sidemenu *ngIf="isSidemenu" [innerWidth]="innerWidth" [isSidemenu]="isSidemenu" (toggleSidemenu)="onToggleSidemenu()" class="app-sidemenu"></app-sidemenu>
+      <app-sidemenu *ngIf="isSidemenu" [innerWidth]="innerWidth" (toggleSidemenu)="onToggleSidemenu()" class="app-sidemenu"></app-sidemenu>
       <router-outlet></router-outlet>  
-
     </main>
   `,
   styleUrls: ['./app.component.css']

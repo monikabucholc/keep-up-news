@@ -19,6 +19,7 @@ import { Router } from '@angular/router';
   `,
   styleUrls: ['./navbar.component.css']
 })
+
 export class NavbarComponent {
   @Input() innerWidth: any;
   @Input() isSidemenu!: boolean;
@@ -27,21 +28,17 @@ export class NavbarComponent {
     this.toggleSidemenu.emit()
   }
 
-
   constructor(private router: Router) {}
 
   searchParam: string = '';
 
   onSubmit() {
     this.router.navigate(['search', this.searchParam]);
-    this.searchParam = ''
+    this.searchParam = '';
   }
 
   onLogoClick() {
     this.router.navigate([''])
   }
-  
-
-  
 
 }
