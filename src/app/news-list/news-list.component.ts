@@ -5,7 +5,7 @@ import { Param } from '../interfaces/param-representation';
 import { HttpErrorResponse } from '@angular/common/http';
 import { ActivatedRoute, Router } from '@angular/router';
 import { countriesAvailable } from '../data/countries';
-import { Subscription } from 'rxjs';
+import { Subscription, switchMap } from 'rxjs';
 
 @Component({
   selector: 'app-news-list',
@@ -49,28 +49,26 @@ export class NewsListComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.subscribtions.add(
-      this.route.params.subscribe((params) => {
-        params['code'] ? this.currentParam = {type: 'country', param: params['code']} : this.currentParam = {type: 'search', param: params['search']}
-        this.setResultHeader(this.currentParam);
-        this.subscribtions.add(
-          this.newsService.getNews(this.currentParam)
-            .subscribe({
-              next: (data: NewsRepr):void => {
-                this.news = data;
-              },
-              error: (error: HttpErrorResponse): void => {
-                this.errorMsg = `Status error: ${error.status}. ${error.error.errors[0]}`;
-              }
-          })
-        )
+      this.route.params.pipe(
+        switchMap((params) => {
+          params['code'] ? this.currentParam = {type: 'country', param: params['code']} : this.currentParam = {type: 'search', param: params['search']}
+          this.setResultHeader(this.currentParam);
+          return this.newsService.getNews(this.currentParam)
       })
-    ) 
+    ).subscribe({
+      next: (data: NewsRepr):void => {
+        this.news = data;
+      },
+      error: (error: HttpErrorResponse): void => {
+        this.errorMsg = `Status error: ${error.status}. ${error.error.errors[0]}`;
+      }
+    })
+    )
   }
 
   ngOnDestroy(): void {
-      this.subscribtions.unsubscribe()
+    this.subscribtions.unsubscribe()
   }
-
 
   convertRouteName(route: string): string {
     return route.replace(/[^\w\s]/g, '').replace(/\s/g, '-').toLowerCase()

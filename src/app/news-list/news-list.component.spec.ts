@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 import { NewsListComponent } from './news-list.component';
 import { NewsService } from '../services/news.service';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -10,82 +10,78 @@ import { ErrorComponent } from '../error/error.component';
 describe('NewsListComponent', () => {
   let component: NewsListComponent;
   let fixture: ComponentFixture<NewsListComponent>;
-  let newsService: NewsService;
+  let newsService: any;
 
   const dummyNews = {
     totalArticles: 3,
     articles: [{
       title: 'a',
-      description: 'ab',
-      content: 'ab',
-      url: 'ab',
-      image: 'ab',
-      publishedAt: 'ab',
+      description: '',
+      content: '',
+      url: '',
+      image: '',
+      publishedAt: '',
       source: {
-        name: 'ab',
-        url: 'ab'
+        name: '',
+        url: ''
       }
     },
     {
       title: 'b',
-      description: 'abc',
-      content: 'abc',
-      url: 'abc',
-      image: 'abc',
-      publishedAt: 'abc',
+      description: '',
+      content: '',
+      url: '',
+      image: '',
+      publishedAt: '',
       source: {
-        name: 'abc',
-        url: 'abc'
+        name: '',
+        url: ''
       }
     },
     {
       title: 'c',
-      description: 'abcd',
-      content: 'abcd',
-      url: 'abcd',
-      image: 'abcd',
-      publishedAt: 'abcd',
+      description: '',
+      content: '',
+      url: '',
+      image: '',
+      publishedAt: '',
       source: {
-        name: 'abcd',
-        url: 'abcd'
+        name: '',
+        url: ''
       }
     }]
   }
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
+  beforeEach(waitForAsync(() => {
+    const newsServiceSpy = jasmine.createSpyObj('NewsService', ["getNews"])
+    TestBed.configureTestingModule({
       declarations: [NewsListComponent, ErrorComponent],
       imports: [RouterTestingModule, HttpClientTestingModule],
-      providers: [NewsService]
-    }).compileComponents();
-  });
+      providers: [{provide: NewsService, useValue: newsServiceSpy}]
+    })
+    .compileComponents()
+    .then(() => {
+      fixture = TestBed.createComponent(NewsListComponent);
+      component = fixture.componentInstance;
+      newsService = TestBed.inject(NewsService)
+      newsService.getNews.and.returnValue(of(dummyNews));
+      fixture.detectChanges();
+    })
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(NewsListComponent);
-    component = fixture.componentInstance;
-    newsService = TestBed.inject(NewsService);
-    fixture.detectChanges();
-  })
+  }));
 
   it('should create', () => {
     expect(component).toBeTruthy();
   });
 
   it('should download news on init', () => {
-    const dummy = dummyNews;
-    spyOn(newsService, 'getNews').and.returnValue(of(dummy));
-    component.ngOnInit();
-    expect(component.news).toEqual(dummy);
-    expect(newsService.getNews).toHaveBeenCalled()
+    expect(component.news).toEqual(dummyNews);
+    expect(newsService.getNews).toHaveBeenCalled();
   })
 
   it('should create list of news', () => {
-    const dummy = dummyNews;
-    spyOn(newsService, 'getNews').and.returnValue(of(dummy));
-    component.ngOnInit();
-    fixture.detectChanges();
     const newsElements = fixture.debugElement.queryAll(By.css('.news-list-item'));
-    expect(newsElements.length).toEqual(dummy.totalArticles)
+    expect(newsElements.length).toEqual(dummyNews.totalArticles);
   })
 
 });

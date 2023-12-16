@@ -16,19 +16,6 @@ export class NewsService {
   private apiKey: string = environment.apiKey;
   private baseUrl:string = `https://gnews.io/api/v4/`;
 
-  getNews(p: Param):Observable<NewsRepr> {
-    let url: string = '';
-    if (p.param == '' && p.type == 'search') {
-      url = `${this.baseUrl}top-headlines?category=general&lang=en&apikey=${this.apiKey}`;
-    } else if (p.type == 'search') {
-      url = `${this.baseUrl}search?q=${p.param}&apikey=${this.apiKey}`
-    } else {
-      url = `${this.baseUrl}top-headlines?category=general&apikey=${this.apiKey}&country=${p.param}`
-    }
-    return this.http.get<NewsRepr>(url)
-  }
-
-  //SELECTED ARTICLE
   private article: ArticleRepr = {
     title: '',
     description: '',
@@ -41,6 +28,20 @@ export class NewsService {
       url: ''
     }
   };
+
+  getNews(p: Param):Observable<NewsRepr> {
+    let url: string = '';
+    if (p.param == '' && p.type == 'search') {
+      url = `${this.baseUrl}top-headlines?category=general&lang=en&apikey=${this.apiKey}`;
+    } else if (p.type == 'search') {
+      url = `${this.baseUrl}search?q=${p.param}&apikey=${this.apiKey}`
+    } else {
+      url = `${this.baseUrl}top-headlines?category=general&apikey=${this.apiKey}&country=${p.param}`
+    }
+    return this.http.get<NewsRepr>(url)
+  }
+
+
 
   setDetailNews(data: ArticleRepr) {
     this.article = data;
